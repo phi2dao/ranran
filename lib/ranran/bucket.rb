@@ -97,10 +97,14 @@ module Ranran
     def weighted_random
       return nil if empty?
       goal = rand * @weight
-      current = 0
-      @items.each_pair do |item, weight|
-        current += weight
-        return item if goal < current
+      # current = 0
+      # @items.each_pair do |item, weight|
+      #   current += weight
+      #   return item if goal < current
+      # end
+      @items.inject(0) do |acc, (item, weight)|
+        return item if goal < acc + weight
+        acc + weight
       end
     end
   end
